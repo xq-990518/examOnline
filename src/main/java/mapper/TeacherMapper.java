@@ -9,7 +9,13 @@ import java.util.List;
 
 @Transactional
 @Mapper
-public interface TeacherMapper {
+public interface TeacherMapper{
+
+    @Update(" update teacher set t_Name=#{t_Name}, t_No=#{t_No}, t_password=#{t_password}, Subject_id=#{subject.Subject_id} where t_id=#{t_id}")
+    int updateTeacher(Teacher teacher);
+
+    @Update(" update strel_tc set c_id=#{param2} where t_id=#{param1}")
+    int updateTeacherStrel(int t_id,int c_id);
 
     @Insert("insert into teacher values(0,#{t_No},#{t_password},#{t_Name},#{subject.Subject_id})")
     int save(Teacher teacher);
@@ -37,6 +43,32 @@ public interface TeacherMapper {
     @Select(" select * from teacher where Subject_id=#{s_id}")
     List<Teacher> getSubTea(int s_id);
 
+    @Select(" select * from teacher")
+    List<Teacher> allTeacher();
+
+    @Delete(" delete from strel_tc where t_id=#{t_id}")
+    int deleteTeacherStrel(int t_id);
+
+    @Delete(" delete from teacher where t_id=#{t_id}")
+    int deleteTeacher(int t_id);
+
+    @Select(" select * from teacher where t_No like #{t_No}")
+    List<Teacher> getTeacherByNo(String t_No);
+
+
+    @Select(" select * from teacher where t_Name like #{t_Name}")
+    List<Teacher> getTeacherByName(String t_Name);
+
+    @Select(" select * from teacher where t_id=#{id}")
+    @Results({
+            @Result(id = true,property = "t_id",column = "t_id"),
+            @Result(property = "t_No",column = "t_No"),
+            @Result(property = "t_password",column = "t_password"),
+            @Result(property = "t_Name",column = "t_Name"),
+            @Result(property = "subject",column = "Subject_id",one = @One(select = "mapper.SubjectMapper.getSub")),
+            @Result(property = "tClasses",column = "t_id",many = @Many(select = "mapper.TClassMapper.getTClass"))
+    })
+    Teacher getTeacherById(int id);
 
     @Insert("insert into student (s_No,s_Name,c_id) values(#{param1},#{param2},#{param3})")
     void AddStu(String s_No, String s_Name, int c_id);

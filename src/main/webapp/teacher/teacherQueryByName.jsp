@@ -1,22 +1,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Shamcey - Metro Style Admin Template</title>
 
-    <link rel="stylesheet" href="<%=path%>/css/style.default.css" type="text/css" />
-    <link rel="stylesheet" href="<%=path%>/css/bootstrap-fileupload.min.css" type="text/css" />
-    <link rel="stylesheet" href="<%=path%>/css/bootstrap-timepicker.min.css" type="text/css" />
+    <link rel="stylesheet" href="<%=path%>/css/style.default.css" type="text/css"/>
+    <link rel="stylesheet" href="<%=path%>/css/bootstrap-fileupload.min.css" type="text/css"/>
+    <link rel="stylesheet" href="<%=path%>/css/bootstrap-timepicker.min.css" type="text/css"/>
 
     <script type="text/javascript" src="<%=path%>/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="<%=path%>/js/jquery-migrate-1.1.1.min.js"></script>
@@ -37,17 +37,17 @@
     <script type="text/javascript" src="<%=path%>/js/custom.js"></script>
     <script type="text/javascript" src="<%=path%>/js/forms.js"></script>
     <script type="text/javascript">
-        jQuery(document).ready(function(){
+        jQuery(document).ready(function () {
             // dynamic table
             jQuery('#dyntable').dataTable({
                 "sPaginationType": "full_numbers",
-                "aaSortingFixed": [[0,'asc']],
-                "fnDrawCallback": function(oSettings) {
+                "aaSortingFixed": [[0, 'asc']],
+                "fnDrawCallback": function (oSettings) {
                     jQuery.uniform.update();
                 }
             });
 
-            jQuery('#dyntable2').dataTable( {
+            jQuery('#dyntable2').dataTable({
                 "bScrollInfinite": true,
                 "bScrollCollapse": true,
                 "sScrollY": "300px"
@@ -58,23 +58,19 @@
 </head>
 <title>管理员登陆成功</title>
 <body>
-<c:if test="${! empty tip }">
-    <script>
-        alert("${tip}");
-    </script>
-</c:if>
+
 <div class="mainwrapper">
 
     <div class="header">
         <div class="logo">
-            <a href="<%=path %>/teacher/teacher.jsp"><img src="<%=path %>/images/logo.png" alt="" /></a>
+            <a href="<%=path %>/teacher/teacher.jsp"><img src="<%=path %>/images/logo.png" alt=""/></a>
         </div>
         <div class="headerinner">
             <ul class="headmenu">
 
                 <li class="right">
                     <div class="userloggedinfo">
-                        <img src="<%=path %>/images/photos/thumb1.png" alt="" />
+                        <img src="<%=path %>/images/photos/thumb1.png" alt=""/>
                         <div class="userinfo">
                             <h5>${admin.admin_name} <small>you are welcome</small></h5>
                             <ul>
@@ -92,12 +88,7 @@
         <div class="leftmenu">
             <ul class="nav nav-tabs nav-stacked">
                 <li class="nav-header">Navigation</li>
-                <li class="dropdown active"><a href=""><span class="iconfa-pencil"></span> 教师管理</a>
-                    <ul>
-                        <li><a href="<%=path %>/teacher/teacherAdd.jsp">添加教师</a></li>
-                        <li><a  href="<%=path %>/teacher/teacherManager.jsp">查询所有教师</a></li>
-                    </ul>
-                </li>
+
                 <li class="dropdown active"><a href=""><span class="iconfa-pencil"></span> 学生管理</a>
                     <ul>
                         <li><a href="<%=path %>/teacher/studentAdd.jsp">添加学生</a></li>
@@ -134,13 +125,13 @@
         </div><!--leftmenu-->
 
     </div><!-- leftpanel -->
-
     <div class="rightpanel">
 
         <ul class="breadcrumbs">
-            <li><a href="<%=path %>/teacher/teacher.jsp"><i class="iconfa-home"></i></a> <span class="separator"></span></li>
+            <li><a href="<%=path %>/teacher/teacher.jsp"><i class="iconfa-home"></i></a> <span class="separator"></span>
+            </li>
             <li>学生管理<span class="separator"></span></li>
-            <li>查询所有学生</li>
+            <li>查询学生</li>
 
             <li class="right">
                 <a href="" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-tint"></i> Color Skins</a>
@@ -155,63 +146,28 @@
             </li>
         </ul>
 
-        <div class="pageheader">
-            <a href="<%=path %>/teacher/teacherQueryByName.jsp"><button >根据姓名查找教师</button></a>
-            <a href="<%=path %>/teacher/teacherQueryByNo.jsp"><button >根据工号查找教师</button></a>
-        </div>
-        <div class="maincontent">
+        <div class="maincontent" style="">
             <div class="maincontentinner">
 
-                <h4 class="widgettitle">教师表</h4>
-                <table id="dyntable" class="table table-bordered responsive">
-                    <colgroup>
-                        <col class="con0" style="align: center; width: 15%" />
+                <div class="widget">
+                    <h4 class="widgettitle">根据名字查询教师</h4>
+                    <div class="widgetcontent">
+                        <form class="stdform" action="getTeacherByName?pageNo=0" method="post">
 
-                        <col class="con0"style="align: center; width: 15%" />
-                        <col class="con1" style="align: center; width: 15%"/>
-                        <col class="con0" style="align: center; width: 15%"/>
-                        <col class="con1" />
-                    </colgroup>
-                    <thead id="AllStuList">
-                    <tr >
-                        <th class="head0">教师编号</th>
-                        <th class="head1">学科</th>
-                        <th class="head0">教师姓名</th>
-                        <th class="head1">操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                            <label>教师姓名:</label>
+                            <span class="field"><input type="text" name="t_Name" class="input-xlarge"
+                                                       placeholder="请输入..."/></span>
 
-                    <c:forEach items="${page.topicList}" var="list">
-                        <tr align="center">
-                            <td>${list.t_No}</td>
-                            <td>${list.subject.Subject_name}</td>
-                            <td>${list.t_Name}</td>
-                            <td>
-                                <center>
-                                    <a href="<%=path%>/teacher/getTeacherById?ByAll='ByAll'&tid=${list.t_id}&pageNo=${page.currentPageNO}">更新</a>&nbsp;&nbsp;
-                                    <a href="<%=path%>/teacher/teacherDelete?ByAll='ByAll'&tid=${list.t_id}&pageNo=${page.currentPageNO}">删除</a>
-                                </center>
+                            <p class="stdformbutton">
+                                <input class="btn btn-primary" type="submit" value="查询">
+                                <input class="btn btn-primary" type="reset" value="重置">
+                            </p>
 
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    <tr>
-                        <td colspan="6" align="center">
-                            共${page.totalCount}条纪录，当前第${page.currentPageNO}/${page.totalPageCount}页，每页${page.pageSize}条纪录
+                        </form>
+                    </div><!--widgetcontent-->
+                </div><!--widget-->
 
-                            <a href="<%=path%>/teacher/getTeacherList?pageNo=1">首页</a> |
-                            <a href="<%=path%>/teacher/getTeacherList?pageNo=${page.currentPageNO - 1}">上一页</a> |
-
-                            <a href="<%=path%>/teacher/getTeacherList?pageNo=${page.currentPageNO + 1}">下一页</a> |
-                            <a href="<%=path%>/teacher/getTeacherList?pageNo=${page.totalPageCount}">尾页</a>
-
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <br /><br />
+                <br/><br/>
 
                 <div class="footer">
                     <div class="footer-left">
@@ -229,3 +185,4 @@
 
 </body>
 </html>
+

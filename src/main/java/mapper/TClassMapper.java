@@ -13,6 +13,9 @@ public interface TClassMapper {
     @Select(" select * from t_class where c_id=#{param1}")
     List<TClass> getCla();
 
+    @Select(" select * from t_class")
+    List<TClass> getTC();
+
     @Select("select * from t_class")
     List<TClass> ShowClass();
 

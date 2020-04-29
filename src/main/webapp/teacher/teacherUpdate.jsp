@@ -17,46 +17,6 @@
     <link rel="stylesheet" href="<%=path%>/css/bootstrap-fileupload.min.css" type="text/css"/>
     <link rel="stylesheet" href="<%=path%>/css/bootstrap-timepicker.min.css" type="text/css"/>
 
-    <script type="text/javascript" src="../js/jquery-3.4.0.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            ajax();
-        });
-
-        function ajax() {
-            $.ajax({
-                url: "http://localhost:8080/examOnline_war/ShowClass",
-                type: "post",
-                dataType: "json",
-                success: function (ClassName) {
-                    for (var i = 0; i < ClassName[0]["MapStr"].length; i++) {
-                        $("#ShowClass").append(
-                            "<option value=" + ClassName[0]["MapStr"][i].c_id + ">" + ClassName[0]["MapStr"][i].c_name + "</option>"
-                        );
-                    }
-                },
-                error: function () {
-                    alert("请联系管理员");
-                }
-            });
-            $.ajax({
-                url: "http://localhost:8080/examOnline_war/teacher/ShowAddQueSubject",
-                type: "post",
-                dataType: "json",
-                success: function (SubjectName) {
-                    for (var i = 0; i < SubjectName[0]["MapStr"].length; i++) {
-                        $("#ShowSub").append(
-                            "<option value=" + SubjectName[0]["MapStr"][i].subject_id + ">" + SubjectName[0]["MapStr"][i].subject_name + "</option>"
-                        );
-                    }
-                },
-                error: function () {
-                    alert("请联系管理员");
-                }
-            });
-        }
-
-    </script>
     <script type="text/javascript" src="<%=path%>/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="<%=path%>/js/jquery-migrate-1.1.1.min.js"></script>
     <script type="text/javascript" src="<%=path%>/js/jquery-ui-1.9.2.min.js"></script>
@@ -151,12 +111,7 @@
         <div class="leftmenu">
             <ul class="nav nav-tabs nav-stacked">
                 <li class="nav-header">Navigation</li>
-                <li class="dropdown active"><a href=""><span class="iconfa-pencil"></span> 教师管理</a>
-                    <ul>
-                        <li><a href="<%=path %>/teacher/teacherAdd.jsp">添加教师</a></li>
-                        <li><a href="<%=path %>/teacher/getTeacherList">查询所有教师</a></li>
-                    </ul>
-                </li>
+
                 <li class="dropdown active"><a href=""><span class="iconfa-pencil"></span> 学生管理</a>
                     <ul>
                         <li><a href="<%=path %>/teacher/studentAdd.jsp">添加学生</a></li>
@@ -204,7 +159,7 @@
             <li><a href="<%=path %>/teacher/teacher.jsp"><i class="iconfa-home"></i></a> <span class="separator"></span>
             </li>
             <li>教师管理 <span class="separator"></span></li>
-            <li>添加教师</li>
+            <li>修改教师信息</li>
 
             <li class="right">
                 <a href="" data-toggle="dropdown" class="dropdown-toggle"><i class="icon-tint"></i> Color Skins</a>
@@ -226,34 +181,49 @@
                 <div class="widget">
                     <h4 class="widgettitle">添加教师</h4>
                     <div class="widgetcontent">
-                        <form class="stdform" action="addTeacher" method="post">
+                        <form class="stdform" action="updateTeacher" method="post">
 
                             <label>教师编号：</label>
-                            <span class="field">
-                      			<input type="text" name="t_No" class="input-xlarge" placeholder="请输入..."
-                                       required="required" onkeyup="showStatus(this.value)"/>
-                            	<span id="txt"></span><!-- 验证 -->
+                            <span class="field"><input type="text" name="t_No" class="input-xlarge"
+                                                       placeholder="请输入..." required="required"
+                                                       onkeyup="showStatus(this.value)"
+                                                       value="${requestScope.teacher.t_No}"/>
                             </span>
-                            <label>教师密码：</label>
-                            <span class="field"><input type="text" name="t_password" class="input-xlarge"
-                                                       placeholder="请输入..." required="required"/></span>
                             <label>教师姓名：</label>
                             <span class="field"><input type="text" name="t_Name" class="input-xlarge"
-                                                       placeholder="请输入..." required="required"/></span>
-                            <label>科目：</label>
-                            <span class="field"><select name="subject" id="ShowSub">
-
-                                    </select></span>
-
-                            <label>所属班级:</label>
+                                                       placeholder="请输入..." required="required"
+                                                       value="${requestScope.teacher.t_Name}"/></span>
+                            <label>密码：</label>
+                            <span class="field"><input type="text" name="t_password" class="input-xlarge"
+                                                       placeholder="请输入..." required="required"
+                                                       value="${requestScope.teacher.t_password}"/></span>
+                            <label>学科:</label>
                             <span class="field">
-                                 <select name="tclass" id="ShowClass" class="form-control">
-
+                                 <select name="subject" class="form-control">
+                                     <c:forEach items="${requestScope.subjects}" var="showSubject">
+                                     <option value="${showSubject.subject_id}"
+                                         <c:if test="${showSubject.subject_id==requestScope.teacher.subject.subject_id}">selected='selected'</c:if>>${showSubject.subject_name}</option>
+                                     </c:forEach>
                                  </select>
                              </span>
+                            <label>班级:</label>
+                            <span class="field">
+                                   <select name="tclass" class="form-control">
+                                       <c:forEach items="${requestScope.tces}" var="showtc">
+                                           <option value="${showtc.c_id}">${showtc.c_name}</option>
+                                           <%--                                                      <c:if test="${showClass.c_id==requestScope.teacherClass.c_id}">selected='selected'</c:if>>${showClass.c_name}</option>--%>
+                                       </c:forEach>
+                                   </select>
+                               </span>
+                            <p>
+                                <%--                                <input type="hidden" name="ByAll" value="${ByAll}"/>--%>
+                                <input type="hidden" name="pageNo" value="${requestScope.pageNo}"/>
+                                <input type="hidden" name="t_id" value="${requestScope.teacher.t_id}"/>
+                            </p>
                             <p class="stdformbutton">
-                                <input class="btn btn-primary" type="submit" value="录入">
+                                <input class="btn btn-primary" type="submit" value="修改">
                                 <input class="btn btn-primary" type="reset" value="重置">
+
                             </p>
 
                         </form>
