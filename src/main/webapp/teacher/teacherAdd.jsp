@@ -205,16 +205,19 @@
                 <div class="widget">
                     <h4 class="widgettitle">添加教师</h4>
                     <div class="widgetcontent">
-                        <form class="stdform" action="AddStudent" method="post">
+                        <form class="stdform" action="addTeacher" method="post">
 
                             <label>教师编号：</label>
                             <span class="field">
-                      			<input type="text" name="studentID" class="input-xlarge" placeholder="请输入..."
+                      			<input type="text" name="t_No" class="input-xlarge" placeholder="请输入..."
                                        required="required" onkeyup="showStatus(this.value)"/>
                             	<span id="txt"></span><!-- 验证 -->
                             </span>
                             <label>教师密码：</label>
-                            <span class="field"><input type="text" name="studentName" class="input-xlarge"
+                            <span class="field"><input type="text" name="t_password" class="input-xlarge"
+                                                       placeholder="请输入..." required="required"/></span>
+                            <label>教师姓名：</label>
+                            <span class="field"><input type="text" name="t_Name" class="input-xlarge"
                                                        placeholder="请输入..." required="required"/></span>
                             <label>科目：</label>
                             <span class="field"><select name="subject" id="ShowSubject" class="form-control">
@@ -223,7 +226,7 @@
 
                             <label>所属班级:</label>
                             <span class="field">
-                                 <select name="sclass" id="ShowClass" class="form-control">
+                                 <select name="tclass" id="ShowClass" class="form-control">
 
                                  </select>
                              </span>
