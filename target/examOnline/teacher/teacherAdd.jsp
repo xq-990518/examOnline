@@ -138,6 +138,7 @@
                 <li class="dropdown active"><a href=""><span class="iconfa-pencil"></span> 教师管理</a>
                     <ul>
                         <li><a href="<%=path %>/teacher/teacherAdd.jsp">添加教师</a></li>
+                        <li><a href="#">查询所有教师</a></li>
                     </ul>
                 </li>
                 <li class="dropdown active"><a href=""><span class="iconfa-pencil"></span> 学生管理</a>
@@ -212,13 +213,14 @@
                                        required="required" onkeyup="showStatus(this.value)"/>
                             	<span id="txt"></span><!-- 验证 -->
                             </span>
+                            <label>教师密码：</label>
+                            <span class="field"><input type="text" name="studentName" class="input-xlarge"
+                                                       placeholder="请输入..." required="required"/></span>
+                            <label>科目：</label>
+                            <span class="field"><select name="subject" id="ShowSubject" class="form-control">
 
-                            <label>教师姓名：</label>
-                            <span class="field"><input type="text" name="studentName" class="input-xlarge"
-                                                       placeholder="请输入..." required="required"/></span>
-                            <label>教师科目：</label>
-                            <span class="field"><input type="text" name="studentName" class="input-xlarge"
-                                                       placeholder="请输入..." required="required"/></span>
+                                 </select></span>
+
                             <label>所属班级:</label>
                             <span class="field">
                                  <select name="sclass" id="ShowClass" class="form-control">
