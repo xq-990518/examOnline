@@ -95,7 +95,7 @@
                 <li class="dropdown active"><a href=""><span class="iconfa-pencil"></span> 教师管理</a>
                     <ul>
                         <li><a href="<%=path %>/teacher/teacherAdd.jsp">添加教师</a></li>
-                        <li><a href="<%=path %>/teacher/SelAllStu">查询所有教师</a></li><%----%>
+                        <li><a  href="<%=path %>/teacher/teacherManager.jsp">查询所有教师</a></li>
                     </ul>
                 </li>
                 <li class="dropdown active"><a href=""><span class="iconfa-pencil"></span> 学生管理</a>
@@ -156,9 +156,8 @@
         </ul>
 
         <div class="pageheader">
-            <a href="<%=path %>/teacher/studentQueryByClass.jsp"><button >根据班级查找教师</button></a>
             <a href="<%=path %>/teacher/studentQueryByName.jsp"><button >根据姓名查找教师</button></a>
-            <a href="<%=path %>/teacher/studentQueryByID.jsp"><button >根据学号查找教师</button></a>
+            <a href="<%=path %>/teacher/studentQueryByID.jsp"><button >根据工号查找教师</button></a>
         </div>
         <div class="maincontent">
             <div class="maincontentinner">
