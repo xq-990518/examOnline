@@ -31,6 +31,8 @@ public interface TeacherMapper {
     })
     List<Teacher> getTea(Teacher teacher);
 
+    @Select(" select * from teacher where t_No=#{t_No}")
+    List<Teacher> getTeacherAddDecide(Teacher teacher);
 
     @Select(" select * from teacher where Subject_id=#{s_id}")
     List<Teacher> getSubTea(int s_id);

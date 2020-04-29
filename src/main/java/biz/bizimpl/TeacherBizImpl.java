@@ -28,22 +28,27 @@ public class TeacherBizImpl implements TeacherBiz {
     @Override
     public ModelAndView save(Teacher teacher, String tclass) {
         ModelAndView modelAndView = null;
-        boolean flag = teacherMapper.save(teacher) > 0;
         Map<String, Object> map = new HashMap<>(16);
         String tip = "";
-        if (flag) {
-            List<Teacher> list = teacherMapper.getTea(new Teacher(teacher.getT_No(), teacher.getT_password()));
-            Teacher teacher1 = ((list != null&& list.size()>0 )? list.get(0) : null);
-            System.err.println(teacher1.toString());
-            flag = teacherMapper.saveStrel(teacher1.getT_id(), Integer.parseInt(tclass)) > 0;
+        if (teacherMapper.getTeacherAddDecide(teacher)==null){
+            boolean flag = teacherMapper.save(teacher) > 0;
             if (flag) {
-                tip = "添加成功！";
+                List<Teacher> list = teacherMapper.getTea(new Teacher(teacher.getT_No(), teacher.getT_password()));
+                Teacher teacher1 = ((list != null&& list.size()>0 )? list.get(0) : null);
+                System.err.println(teacher1.toString());
+                flag = teacherMapper.saveStrel(teacher1.getT_id(), Integer.parseInt(tclass)) > 0;
+                if (flag) {
+                    tip = "添加成功！";
+                } else {
+                    tip = "添加失败！";
+                }
             } else {
                 tip = "添加失败！";
             }
-        } else {
-            tip = "添加失败！";
+        }else {
+            tip="工号已被占用，请更换工号，重新添加！";
         }
+
         map.put("tip", tip);
         this.getPage(map, teacherMapper.getTeacherCount(),teacherMapper.getSelectTeacher());
         modelAndView = new ModelAndView("teacher/teacherAdd", map);
