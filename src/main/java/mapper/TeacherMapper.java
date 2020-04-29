@@ -11,11 +11,11 @@ import java.util.List;
 @Mapper
 public interface TeacherMapper {
 
-    @Insert("insert into teacher values(0,#{t_No},#{t_password},#{t_Name},#{subject.id})")
+    @Insert("insert into teacher values(0,#{t_No},#{t_password},#{t_Name},#{subject.Subject_id})")
     int save(Teacher teacher);
 
-    @Insert(" insert into strel_tc(t_id,c_id) values(#{t_id},#{c_id})")
-    int save(Integer t_id,Integer c_id);
+    @Insert(" insert into strel_tc(t_id,c_id) values(#{param1},#{param2})")
+    int saveStrel(int t_id,int c_id);
 
     @Select(" select count(1) from teacher ")
     int getTeacherCount();

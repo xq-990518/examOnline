@@ -32,9 +32,10 @@ public class TeacherBizImpl implements TeacherBiz {
         Map<String, Object> map = new HashMap<>(16);
         String tip = "";
         if (flag) {
-            List<Teacher> list = teacherMapper.getTea(new Teacher(teacher.getT_Name(), teacher.getT_password()));
-            Teacher teacher1 = list != null ? list.get(0) : null;
-            flag = teacherMapper.save(teacher1.getT_id(), Integer.parseInt(tclass)) > 0;
+            List<Teacher> list = teacherMapper.getTea(new Teacher(teacher.getT_No(), teacher.getT_password()));
+            Teacher teacher1 = ((list != null&& list.size()>0 )? list.get(0) : null);
+            System.err.println(teacher1.toString());
+            flag = teacherMapper.saveStrel(teacher1.getT_id(), Integer.parseInt(tclass)) > 0;
             if (flag) {
                 tip = "添加成功！";
             } else {
@@ -45,7 +46,7 @@ public class TeacherBizImpl implements TeacherBiz {
         }
         map.put("tip", tip);
         this.getPage(map, teacherMapper.getTeacherCount(),teacherMapper.getSelectTeacher());
-        modelAndView = new ModelAndView("teacher/teacherManager", map);
+        modelAndView = new ModelAndView("teacher/teacherAdd", map);
         return modelAndView;
     }
 
