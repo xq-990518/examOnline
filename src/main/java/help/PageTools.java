@@ -3,6 +3,7 @@ package help;
 import entity.Page;
 
 public class PageTools {
+
     public Page getPage(int num, int pageNo){
         Page page = new Page();
         page.setPageSize(8);

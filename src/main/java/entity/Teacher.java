@@ -64,6 +64,12 @@ public class Teacher {
         this.t_password = t_password;
     }
 
+    public Teacher(String t_No, String t_Name, String t_password) {
+        this.t_No = t_No;
+        this.t_Name = t_Name;
+        this.t_password = t_password;
+    }
+
     public Teacher(int t_id, String t_No, String t_Name, String t_password, Subject subject) {
         this.t_id = t_id;
         this.t_No = t_No;

@@ -53,6 +53,10 @@ public class Subject {
     public Subject() {
     }
 
+    public Subject(int subject_id) {
+        Subject_id = subject_id;
+    }
+
     public Subject(int subject_id, String subject_name) {
         Subject_id = subject_id;
         Subject_name = subject_name;
