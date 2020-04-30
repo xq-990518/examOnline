@@ -185,7 +185,7 @@
                     <c:forEach items="${page.topicList}" var="list">
                         <tr align="center">
                             <td>${list.t_No}</td>
-                            <td>${list.subject.Subject_name}</td>
+                            <td>${list.subject.subject_name}</td>
                             <td>${list.t_Name}</td>
                             <td>
                                 <center>

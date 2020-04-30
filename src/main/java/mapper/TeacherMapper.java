@@ -38,12 +38,28 @@ public interface TeacherMapper{
     List<Teacher> getTea(Teacher teacher);
 
     @Select(" select * from teacher where t_No=#{t_No}")
-    List<Teacher> getTeacherAddDecide(Teacher teacher);
+    List<Teacher> getTeacherAddDecide(String t_No);
 
     @Select(" select * from teacher where Subject_id=#{s_id}")
+    @Results({
+            @Result(id = true,property = "t_id",column = "t_id"),
+            @Result(property = "t_No",column = "t_No"),
+            @Result(property = "t_password",column = "t_password"),
+            @Result(property = "t_Name",column = "t_Name"),
+            @Result(property = "subject",column = "Subject_id",one = @One(select = "mapper.SubjectMapper.getSub")),
+            @Result(property = "tClasses",column = "t_id",many = @Many(select = "mapper.TClassMapper.getTClass"))
+    })
     List<Teacher> getSubTea(int s_id);
 
     @Select(" select * from teacher")
+    @Results({
+            @Result(id = true,property = "t_id",column = "t_id"),
+            @Result(property = "t_No",column = "t_No"),
+            @Result(property = "t_password",column = "t_password"),
+            @Result(property = "t_Name",column = "t_Name"),
+            @Result(property = "subject",column = "Subject_id",one = @One(select = "mapper.SubjectMapper.getSub")),
+            @Result(property = "tClasses",column = "t_id",many = @Many(select = "mapper.TClassMapper.getTClass"))
+    })
     List<Teacher> allTeacher();
 
     @Delete(" delete from strel_tc where t_id=#{t_id}")
@@ -53,10 +69,26 @@ public interface TeacherMapper{
     int deleteTeacher(int t_id);
 
     @Select(" select * from teacher where t_No like #{t_No}")
+    @Results({
+            @Result(id = true,property = "t_id",column = "t_id"),
+            @Result(property = "t_No",column = "t_No"),
+            @Result(property = "t_password",column = "t_password"),
+            @Result(property = "t_Name",column = "t_Name"),
+            @Result(property = "subject",column = "Subject_id",one = @One(select = "mapper.SubjectMapper.getSub")),
+            @Result(property = "tClasses",column = "t_id",many = @Many(select = "mapper.TClassMapper.getTClass"))
+    })
     List<Teacher> getTeacherByNo(String t_No);
 
 
     @Select(" select * from teacher where t_Name like #{t_Name}")
+    @Results({
+            @Result(id = true,property = "t_id",column = "t_id"),
+            @Result(property = "t_No",column = "t_No"),
+            @Result(property = "t_password",column = "t_password"),
+            @Result(property = "t_Name",column = "t_Name"),
+            @Result(property = "subject",column = "Subject_id",one = @One(select = "mapper.SubjectMapper.getSub")),
+            @Result(property = "tClasses",column = "t_id",many = @Many(select = "mapper.TClassMapper.getTClass"))
+    })
     List<Teacher> getTeacherByName(String t_Name);
 
     @Select(" select * from teacher where t_id=#{id}")

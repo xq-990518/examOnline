@@ -36,7 +36,8 @@ public class TeacherBizImpl implements TeacherBiz {
         ModelAndView modelAndView = null;
         Map<String, Object> map = new HashMap<>(16);
         String tip = "";
-        if (teacherMapper.getTeacherAddDecide(teacher) == null) {
+        List<Teacher> teachers = teacherMapper.getTeacherAddDecide(teacher.getT_No());
+        if (teachers == null || teachers.size() == 0) {
             boolean flag = teacherMapper.save(teacher) > 0;
             if (flag) {
                 List<Teacher> list = teacherMapper.getTea(new Teacher(teacher.getT_No(), teacher.getT_password()));
